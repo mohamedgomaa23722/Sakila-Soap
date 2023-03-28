@@ -6,7 +6,7 @@ Sakila Project is Small video store has a bunch of films and customer and we nee
 - Download MySQL WorkBench which has sakila schema by default
 - Upate persistance.xml with your username and password which take privilages to sakila schema
 
-# our End Points
+# our End Points (TODO : Api Documnetation Coming soon)
 - /Customers
 - /films
 
