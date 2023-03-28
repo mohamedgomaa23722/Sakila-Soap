@@ -10,7 +10,7 @@ Sakila Project is Small video store has a bunch of films and customer and we nee
 - /Customers
 - /films
 
-#Technology Used
+# Technology Used
 - Java
 - Maven
 - Jakarta
