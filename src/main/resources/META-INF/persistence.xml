@@ -15,7 +15,7 @@ https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd"
 
             <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/sakila"/>
             <property name="hibernate.connection.driver_class" value="com.mysql.cj.jdbc.Driver"/>
-            <property name="hibernate.connection.username" value="gomaa"/>
+            <property name="hibernate.connection.username" value="sakilaUser"/>
             <property name="hibernate.connection.password" value="1234567"/>
 
         </properties>

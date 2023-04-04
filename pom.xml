@@ -34,51 +34,77 @@
             <artifactId>hibernate-hikaricp</artifactId>
             <version>6.2.0.Final</version>
         </dependency>
+
+        <!-- Test Dependencies -->
+        <!--start of Test Dependencies-->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>5.9.2</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <version>3.24.2</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
     <build>
         <finalName>Sakila_Api</finalName>
         <plugins>
 
+<!--            <plugin>-->
+<!--                <groupId>org.hibernate.tool</groupId>-->
+<!--                <artifactId>hibernate-tools-maven</artifactId>-->
+<!--                <version>6.1.7.Final</version>-->
+<!--                <dependencies>-->
+<!--                    &lt;!&ndash; https://mvnrepository.com/artifact/org.hibernate/hibernate-tools-->
+<!--          &ndash;&gt;-->
+<!--                    <dependency>-->
+<!--                        <groupId>org.hibernate.tool</groupId>-->
+<!--                        <artifactId>hibernate-tools-orm</artifactId>-->
+<!--                        <version>6.1.7.Final</version>-->
+<!--                    </dependency>-->
+
+<!--                    <dependency>-->
+<!--                        <groupId>mysql</groupId>-->
+<!--                        <artifactId>mysql-connector-java</artifactId>-->
+<!--                        <version>8.0.30</version>-->
+<!--                    </dependency>-->
+
+<!--                    <dependency>-->
+<!--                        <groupId>org.hibernate</groupId>-->
+<!--                        <artifactId>hibernate-hikaricp</artifactId>-->
+<!--                        <version>6.2.0.Final</version>-->
+<!--                    </dependency>-->
+<!--                </dependencies>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <id>entity-generation</id>-->
+<!--                        <phase>generate-sources</phase>-->
+<!--                        <goals>-->
+<!--                            <goal>-->
+
+<!--                            </goal>-->
+<!--                        </goals>-->
+<!--                        <configuration>-->
+<!--                            <ejb3>true</ejb3>-->
+<!--                            <jdk5>true</jdk5>-->
+<!--                            <packageName>com.iti.sakila.Entity</packageName>-->
+<!--                            <outputDirectory>src/main/java/</outputDirectory>-->
+<!--                        </configuration>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--            </plugin>-->
             <plugin>
-                <groupId>org.hibernate.tool</groupId>
-                <artifactId>hibernate-tools-maven</artifactId>
-                <version>6.1.7.Final</version>
-                <dependencies>
-                    <!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-tools
-          -->
-                    <dependency>
-                        <groupId>org.hibernate.tool</groupId>
-                        <artifactId>hibernate-tools-orm</artifactId>
-                        <version>6.1.7.Final</version>
-                    </dependency>
-
-                    <dependency>
-                        <groupId>mysql</groupId>
-                        <artifactId>mysql-connector-java</artifactId>
-                        <version>8.0.30</version>
-                    </dependency>
-
-                    <dependency>
-                        <groupId>org.hibernate</groupId>
-                        <artifactId>hibernate-hikaricp</artifactId>
-                        <version>6.2.0.Final</version>
-                    </dependency>
-                </dependencies>
-                <executions>
-                    <execution>
-                        <id>entity-generation</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>hbm2java</goal>
-                        </goals>
-                        <configuration>
-                            <ejb3>true</ejb3>
-                            <jdk5>true</jdk5>
-                            <packageName>com.iti.sakila.Entity</packageName>
-                            <outputDirectory>src/main/java/</outputDirectory>
-                        </configuration>
-                    </execution>
-                </executions>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>10</source>
+                    <target>10</target>
+                </configuration>
             </plugin>
 
         </plugins>
