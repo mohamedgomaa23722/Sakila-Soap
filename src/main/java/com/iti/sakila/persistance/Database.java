@@ -48,9 +48,11 @@ public class Database {
         }
     }
 
-    public static <T, P> List<T> doSingleParameterSelectQuery(String query, P parameter, Class<T> src) {
+    public static <T, P> List<T> doSingleParameterSelectQuery(String query, P parameter, Class<T> src, int page) {
         return Database.doInTransaction(entityManager -> entityManager.createQuery(query, src)
                 .setParameter(1, parameter)
+                .setFirstResult((page - 1 ) * 10)
+                .setMaxResults(10)
                 .getResultList());
     }
 

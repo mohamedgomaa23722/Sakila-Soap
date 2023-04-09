@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<endpoints xmlns="http://java.sun.com/xml/ns/jax-ws/ri/runtime" version="2.0">
+    <endpoint name="ActorService" implementation="com.iti.sakila.api.soap.ActorWebService"
+              url-pattern="/actors" />
+<!--    <endpoint name="FilmService" implementation="com.iti.sakila.api.soap.FilmService"-->
+<!--              url-pattern="/films" />-->
+</endpoints>

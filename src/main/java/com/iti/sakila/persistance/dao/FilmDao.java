@@ -1,16 +1,14 @@
 package com.iti.sakila.persistance.dao;
 
-import com.iti.sakila.Entity.Actor;
-import com.iti.sakila.Entity.Film;
+import com.iti.sakila.persistance.entity.Film;
 
 import java.math.BigDecimal;
-import java.util.Date;
 import java.util.List;
 
 public interface FilmDao {
-    List<Film> findByCategoryId(int categoryId);
+    List<Film> findByCategoryId(int categoryId, int page);
 
-    List<Film> findByRate(BigDecimal rating);
+    List<Film> findByRate(BigDecimal rating, int page);
 
-    List<Film> findByCost(BigDecimal price);
+    List<Film> findByCost(BigDecimal price, int page);
 }

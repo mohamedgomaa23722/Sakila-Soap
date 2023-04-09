@@ -1,4 +1,6 @@
-import com.iti.sakila.Entity.Actor;
+package com.iti.sakila.respository;
+
+import com.iti.sakila.persistance.entity.Actor;
 import com.iti.sakila.persistance.repository.ActorRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
@@ -17,9 +19,10 @@ public class ActorRepoTest {
     @Test
     public void getAll_Actors_From_Database(){
         //Arrange
-        int expectedSize = 200;
+        int expectedSize = 10;
         //Act
-        int result = actorRepository.getAll().size();
+        int result = actorRepository.getAll(1).size();
+        System.out.println(actorRepository.getAll(1));
         //Assert
         Assertions.assertEquals(expectedSize, result);
     }
@@ -51,7 +54,7 @@ public class ActorRepoTest {
         String actorName = "a";
         int expectedSize = 13;
         //Act
-        List<Actor> result = actorRepository.findByName(actorName);
+        List<Actor> result = actorRepository.findByName(actorName, 1);
         for (Actor actor : result) {
             System.out.println(actor);
         }
@@ -64,8 +67,8 @@ public class ActorRepoTest {
         //Arrange
         Actor actor = new Actor("mohamed","gomaa", new Timestamp(new Date().getTime()));
         //Act
-        boolean result = actorRepository.insert(actor);
+        Actor result = actorRepository.insert(actor);
         //Assert
-        Assertions.assertTrue(result);
+        Assertions.assertTrue(result != null);
     }
 }

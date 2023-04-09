@@ -1,14 +1,11 @@
 package com.iti.sakila.utils;
 
-import com.iti.sakila.Entity.Actor;
+import com.iti.sakila.persistance.entity.Actor;
 
 public class GenerateSelectStatement {
 
     public static String getSelectQuery(Class src) {
-        String query = "From";
-        if (src == Actor.class)
-            query += " Actor";
-        return query;
+        return "From " + src.getName();
     }
 
     public static String getSelectNameQuery(Class src) {

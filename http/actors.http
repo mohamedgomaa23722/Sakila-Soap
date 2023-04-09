@@ -1,0 +1,12 @@
+
+POST http://localhost:8080/sakila/actors HTTP/1.1
+Content-Type: text/xml
+
+<soap:Envelope  xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"
+xmlns:com="http://soap.api.sakila.iti.com/">
+   <soap:Body>
+      <com:actorsData>
+         <page>1</page>
+      </com:actorsData>
+   </soap:Body>
+</soap:Envelope>

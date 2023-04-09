@@ -1,6 +1,5 @@
 package com.iti.sakila.persistance.repository;
 
-import com.iti.sakila.Entity.Film;
 import com.iti.sakila.persistance.Database;
 import com.iti.sakila.persistance.dao.BaseDao;
 import com.iti.sakila.utils.GenerateSelectStatement;
@@ -14,9 +13,11 @@ public class BaseRepository<T> implements BaseDao<T> {
         this.src = currentCalss;
     }
 
-    public List<T> getAll() {
+    public List<T> getAll(int page) {
         return Database.doInTransaction(entityManager -> entityManager
                 .createQuery(GenerateSelectStatement.getSelectQuery(src), src)
+                .setFirstResult((page-1) * 10)
+                .setMaxResults(10)
                 .getResultList());
     }
 
@@ -49,12 +50,12 @@ public class BaseRepository<T> implements BaseDao<T> {
     }
 
     @Override
-    public boolean insert(T entity) {
+    public T insert(T entity) {
         try {
-            Database.doInTransactionWithoutResult(entityManager -> entityManager.persist(entity));
-            return true;
+            return Database.doInTransaction(entityManager -> entityManager.merge(entity));
         } catch (Exception e) {
-            return false;
+            e.printStackTrace();
+            return null;
         }
     }
 
@@ -64,8 +65,8 @@ public class BaseRepository<T> implements BaseDao<T> {
     }
 
     @Override
-    public List<T> findByName(String name) {
+    public List<T> findByName(String name, int page) {
         return Database.doSingleParameterSelectQuery(GenerateSelectStatement.getSelectNameQuery(src),
-                name + "%", src);
+                name + "%", src, page);
     }
 }
