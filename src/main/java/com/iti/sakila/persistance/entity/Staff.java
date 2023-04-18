@@ -16,8 +16,10 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
+import org.hibernate.annotations.BatchSize;
 
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -29,8 +31,7 @@ import java.util.Set;
         , catalog = "sakila"
 )
 public class Staff implements java.io.Serializable {
-
-    private Byte staffId;
+    private int staffId;
     private Store store;
     private Address address;
     private String firstName;
@@ -40,10 +41,10 @@ public class Staff implements java.io.Serializable {
     private boolean active;
     private String username;
     private String password;
-    private Timestamp lastUpdate;
-    private Set<Payment> payments = new HashSet<Payment>(0);
-    private Set<Store> stores = new HashSet<Store>(0);
-    private Set<Rental> rentals = new HashSet<Rental>(0);
+    private Timestamp lastUpdate = new Timestamp(new Date().getTime());
+    private Set<Payment> payments = new HashSet<>(0);
+    private Set<Store> stores = new HashSet<>(0);
+    private Set<Rental> rentals = new HashSet<>(0);
 
     public Staff() {
     }
@@ -80,11 +81,11 @@ public class Staff implements java.io.Serializable {
 
 
     @Column(name = "staff_id", unique = true, nullable = false)
-    public Byte getStaffId() {
+    public int getStaffId() {
         return this.staffId;
     }
 
-    public void setStaffId(Byte staffId) {
+    public void setStaffId(int staffId) {
         this.staffId = staffId;
     }
 
@@ -188,6 +189,7 @@ public class Staff implements java.io.Serializable {
         this.lastUpdate = lastUpdate;
     }
 
+    @BatchSize(size = 20)
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "staff")
     public Set<Payment> getPayments() {
         return this.payments;
@@ -197,6 +199,7 @@ public class Staff implements java.io.Serializable {
         this.payments = payments;
     }
 
+    @BatchSize(size = 20)
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "staff")
     public Set<Store> getStores() {
         return this.stores;
@@ -206,6 +209,7 @@ public class Staff implements java.io.Serializable {
         this.stores = stores;
     }
 
+    @BatchSize(size = 20)
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "staff")
     public Set<Rental> getRentals() {
         return this.rentals;

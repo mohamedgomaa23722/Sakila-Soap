@@ -1,58 +1,63 @@
 package com.iti.sakila.persistance.repository;
 
+import com.iti.sakila.bussiness.exceptions.NotExistException;
 import com.iti.sakila.persistance.Database;
 import com.iti.sakila.persistance.dao.BaseDao;
-import com.iti.sakila.utils.GenerateSelectStatement;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Root;
 
 import java.util.List;
 
 public class BaseRepository<T> implements BaseDao<T> {
     private final Class<T> src;
 
-    public BaseRepository(Class<T> currentCalss) {
-        this.src = currentCalss;
+    public BaseRepository(Class<T> src) {
+        this.src = src;
     }
 
-    public List<T> getAll(int page) {
-        return Database.doInTransaction(entityManager -> entityManager
-                .createQuery(GenerateSelectStatement.getSelectQuery(src), src)
-                .setFirstResult((page-1) * 10)
+    public List<T> getAll(int page, EntityManager entityManager) {
+        return entityManager
+                .createQuery("From " + src.getName(), src)
+                .setFirstResult((page - 1) * 10)
                 .setMaxResults(10)
-                .getResultList());
+                .getResultList();
     }
 
-    public boolean update(T entity) {
-        if (isExist()) {
-            Database.doInTransactionWithoutResult(entityManager -> entityManager.merge(entity));
+    public boolean update(T entity, int id, EntityManager entityManager) {
+        if (findById(id, entityManager) != null) {
+             entityManager.merge(entity);
             return true;
         }
         return false;
     }
 
-    public boolean delete(int id) {
-        T entity = findById(id);
+    public boolean delete(int id, EntityManager entityManager) {
+        T entity = findById(id, entityManager);
         System.out.println(entity);
-        return Database.doInTransaction(entityManager -> {
             if (entityManager.contains(entity)) {
                 entityManager.remove(entity);
                 System.out.println("contains actor");
-                return true;
             } else {
                 System.out.println("not contain actor");
                 entityManager.remove(entityManager.merge(entity));
-                return true;
             }
-        });
+            return true;
     }
 
-    public T findById(int id) {
-        return Database.doInTransaction(entityManager -> entityManager.find(src, id));
+    public T findById(int id, EntityManager entityManager) {
+            try {
+                return entityManager.find(src, id);
+            } catch (Exception ex) {
+                throw new NotExistException(src.getSimpleName() + " id is not exist into our database");
+            }
     }
 
     @Override
-    public T insert(T entity) {
+    public T insert(T entity, EntityManager entityManager) {
         try {
-            return Database.doInTransaction(entityManager -> entityManager.merge(entity));
+            return  entityManager.merge(entity);
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -60,13 +65,30 @@ public class BaseRepository<T> implements BaseDao<T> {
     }
 
     @Override
-    public boolean isExist() {
-        return Database.doInTransaction(entityManager -> entityManager.find(src, 1) != null);
+    public T isExist(String name, String fieldName, EntityManager entityManager) {
+            try {
+                CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+                CriteriaQuery<T> criteriaBuilderQuery = criteriaBuilder.createQuery(src);
+                Root<T> root = criteriaBuilderQuery.from(src);
+                criteriaBuilderQuery.where(criteriaBuilder.equal(root.get(fieldName), name));
+                return entityManager.createQuery(criteriaBuilderQuery)
+                        .getSingleResult();
+            } catch (Exception ex) {
+                return null;
+            }
     }
 
     @Override
-    public List<T> findByName(String name, int page) {
-        return Database.doSingleParameterSelectQuery(GenerateSelectStatement.getSelectNameQuery(src),
-                name + "%", src, page);
+    public List<T> findByName(String name, String fieldName, int page, EntityManager entityManager) {
+            try {
+                CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+                CriteriaQuery<T> criteriaBuilderQuery = criteriaBuilder.createQuery(src);
+                Root<T> root = criteriaBuilderQuery.from(src);
+                criteriaBuilderQuery.where(criteriaBuilder.like(root.get(fieldName), name + "%"));
+                return entityManager.createQuery(criteriaBuilderQuery)
+                        .getResultList();
+            } catch (Exception ex) {
+                throw new NotExistException("There are no results with name \"" + name + "\" into our database");
+            }
     }
 }

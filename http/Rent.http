@@ -1,0 +1,71 @@
+POST http://localhost:8080/sakila/rent HTTP/1.1
+Content-Type: text/xml
+
+<soap:Envelope  xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"
+xmlns:com="http://webservice.soap.api.sakila.iti.com/">
+   <soap:Body>
+      <com:insertRental>
+        <rental>
+         <filmId>6</filmId>
+         <customerId>1</customerId>
+         <staffId>1</staffId>
+        </rental>
+      </com:insertRental>
+   </soap:Body>
+</soap:Envelope>
+
+###
+POST http://localhost:8080/sakila/rent HTTP/1.1
+Content-Type: text/xml
+
+<soap:Envelope  xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"
+xmlns:com="http://webservice.soap.api.sakila.iti.com/">
+   <soap:Body>
+      <com:findCustomerRentals>
+         <customerId>4</customerId>
+         <page>1</page>
+      </com:findCustomerRentals>
+   </soap:Body>
+</soap:Envelope>
+
+###delete
+POST http://localhost:8080/sakila/rent HTTP/1.1
+Content-Type: text/xml
+
+<soap:Envelope  xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"
+xmlns:com="http://webservice.soap.api.sakila.iti.com/">
+   <soap:Body>
+      <com:delete>
+         <id>5</id>
+      </com:delete>
+   </soap:Body>
+</soap:Envelope>
+
+### staff rentals
+POST http://localhost:8080/sakila/rent HTTP/1.1
+Content-Type: text/xml
+
+<soap:Envelope  xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"
+xmlns:com="http://webservice.soap.api.sakila.iti.com/">
+   <soap:Body>
+      <com:findStaffRentals>
+         <staffId>2</staffId>
+         <page>1</page>
+      </com:findStaffRentals>
+   </soap:Body>
+</soap:Envelope>
+
+### rentals by date
+POST http://localhost:8080/sakila/rent HTTP/1.1
+Content-Type: text/xml
+
+<soap:Envelope  xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"
+xmlns:com="http://webservice.soap.api.sakila.iti.com/">
+   <soap:Body>
+      <com:findRentalsByRentalDate>
+         <from>2005-05-25</from>
+         <to>2005-05-26</to>         
+         <page>13</page>
+      </com:findRentalsByRentalDate>
+   </soap:Body>
+</soap:Envelope>

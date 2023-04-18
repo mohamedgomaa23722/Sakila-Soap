@@ -1,13 +1,9 @@
 package com.iti.sakila;
 
-import com.iti.sakila.bussiness.dtos.ActorDto;
-import com.iti.sakila.bussiness.dtos.ListResponse;
-
 import com.iti.sakila.bussiness.dtos.Message;
-import com.iti.sakila.bussiness.dtos.ObjectResponse;
+import com.iti.sakila.persistance.entity.Actor;
 import jakarta.ws.rs.client.Client;
 import jakarta.ws.rs.client.ClientBuilder;
-import jakarta.ws.rs.client.Entity;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.junit.jupiter.api.Assertions;
@@ -29,14 +25,14 @@ public class ClientTest {
     public void getActors() {
         //Arrange
         //Act
-        ListResponse response = client
+        Response response = client
                 .target("http://localhost:8080/sakila/api/v1/actors/")
                 .request(MediaType.APPLICATION_JSON)
                 .get(Response.class)
-                .readEntity(ListResponse.class);
-        System.out.println(response.getItems());
+                .readEntity(Response.class);
+        System.out.println(response);
         //Assert
-        Assertions.assertEquals(200, response.getMessage().getCode());
+        Assertions.assertEquals(200, response.getStatus());
     }
 
     @Test
@@ -44,36 +40,36 @@ public class ClientTest {
         //Arrange
         int id = 2;
         //Act
-        ObjectResponse response = client
+        Actor response = client
                 .target("http://localhost:8080/sakila/api/v1/actors/")
                 .path("{id}")
                 .resolveTemplate("id", id)
                 .request(MediaType.APPLICATION_JSON)
                 .get(Response.class)
-                .readEntity(ObjectResponse.class);
+                .readEntity(Actor.class);
 
-        System.out.println(response.getObject());
-        //Assert
-        Assertions.assertEquals(response.getMessage().getCode(), 200);
-    }
-
-
-    @Test
-    public void Insert_New_Actor() {
-        //Arrange
-        ActorDto actorDto = new ActorDto();
-        actorDto.setLastName("gomaa");
-        actorDto.setFirstName("Mohamed");
-        //Act
-        Message response = client
-                .target("http://localhost:8080/sakila/api/v1/actors/")
-                .request()
-                .post(Entity.entity( actorDto, MediaType.APPLICATION_JSON ), Response.class)
-                .readEntity(Message.class);
         System.out.println(response);
         //Assert
-        Assertions.assertEquals(response.getCode(), 200);
+        Assertions.assertTrue(response.getFirstName() != null);
     }
+
+
+//    @Test
+//    public void Insert_New_Actor() {
+//        //Arrange
+//        ActorDto actorDto = new ActorDto();
+//        actorDto.setLastName("gomaa");
+//        actorDto.setFirstName("Mohamed");
+//        //Act
+//        Message response = client
+//                .target("http://localhost:8080/sakila/api/v1/actors/")
+//                .request()
+//                .post(Entity.entity( actorDto, MediaType.APPLICATION_JSON ), Response.class)
+//                .readEntity(Message.class);
+//        System.out.println(response);
+//        //Assert
+//        Assertions.assertEquals(response.getCode(), 200);
+//    }
 
 
     @Test

@@ -1,0 +1,86 @@
+### get all Cities (Done)
+POST http://localhost:8080/sakila/cities HTTP/1.1
+Content-Type: text/xml
+
+<soap:Envelope  xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"
+xmlns:com="http://webservice.soap.api.sakila.iti.com/">
+   <soap:Body>
+      <com:getCities>
+         <page>1</page>
+      </com:getCities>
+   </soap:Body>
+</soap:Envelope>
+
+### get single City (Done)
+POST http://localhost:8080/sakila/cities HTTP/1.1
+Content-Type: text/xml
+
+<soap:Envelope  xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"
+xmlns:com="http://webservice.soap.api.sakila.iti.com/">
+   <soap:Body>
+      <com:getCity>
+         <id>1</id>
+      </com:getCity>
+   </soap:Body>
+</soap:Envelope>
+
+### insert City (Done)
+POST http://localhost:8080/sakila/cities HTTP/1.1
+Content-Type: text/xml
+
+<soap:Envelope  xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"
+xmlns:com="http://webservice.soap.api.sakila.iti.com/">
+   <soap:Body>
+      <com:insertCity>
+         <city>
+            <country>Egypt</country>
+            <city>Bani sw</city>
+         </city>
+      </com:insertCity>
+   </soap:Body>
+</soap:Envelope>
+
+
+### update City (Done)
+POST http://localhost:8080/sakila/cities HTTP/1.1
+Content-Type: text/xml
+
+<soap:Envelope  xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"
+xmlns:com="http://webservice.soap.api.sakila.iti.com/">
+   <soap:Body>
+      <com:updateCity>
+         <city>
+            <cityId>619</cityId>
+            <country>Egypt</country>
+            <city>Bani swaf</city>
+        </city>
+      </com:updateCity>
+   </soap:Body>
+</soap:Envelope>
+
+### delete City (Done)
+POST http://localhost:8080/sakila/cities HTTP/1.1
+Content-Type: text/xml
+
+<soap:Envelope  xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"
+xmlns:com="http://webservice.soap.api.sakila.iti.com/">
+   <soap:Body>
+      <com:deleteCity>
+            <id>619</id>
+      </com:deleteCity>
+   </soap:Body>
+</soap:Envelope>
+
+### find City by name (Done)
+POST http://localhost:8080/sakila/cities HTTP/1.1
+Content-Type: text/xml
+
+<soap:Envelope  xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"
+xmlns:com="http://webservice.soap.api.sakila.iti.com/">
+   <soap:Body>
+      <com:findCitiesByName>
+            <name>Za</name>
+            <page>1</page>
+      </com:findCitiesByName>
+   </soap:Body>
+</soap:Envelope>

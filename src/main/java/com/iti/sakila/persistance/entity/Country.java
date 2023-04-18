@@ -13,6 +13,7 @@ import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -25,10 +26,9 @@ import java.util.Set;
 )
 public class Country  implements java.io.Serializable {
 
-
      private Short countryId;
      private String country;
-     private Timestamp lastUpdate;
+    private Timestamp lastUpdate = new Timestamp(new Date().getTime());
      private Set<City> cities = new HashSet<City>(0);
 
     public Country() {
@@ -87,8 +87,13 @@ public class Country  implements java.io.Serializable {
     }
 
 
-
-
+    @Override
+    public String toString() {
+        return "Country{" +
+                "countryId=" + countryId +
+                ", country='" + country + '\'' +
+                '}'+"\n";
+    }
 }
 
 

@@ -12,13 +12,13 @@ import jakarta.persistence.Embeddable;
 public class FilmCategoryId  implements java.io.Serializable {
 
 
-     private byte categoryId;
+     private int categoryId;
      private short filmId;
 
     public FilmCategoryId() {
     }
 
-    public FilmCategoryId(byte categoryId, short filmId) {
+    public FilmCategoryId(int categoryId, short filmId) {
        this.categoryId = categoryId;
        this.filmId = filmId;
     }
@@ -26,11 +26,11 @@ public class FilmCategoryId  implements java.io.Serializable {
 
 
     @Column(name="category_id", nullable=false)
-    public byte getCategoryId() {
+    public int getCategoryId() {
         return this.categoryId;
     }
     
-    public void setCategoryId(byte categoryId) {
+    public void setCategoryId(int categoryId) {
         this.categoryId = categoryId;
     }
 

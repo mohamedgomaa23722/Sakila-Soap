@@ -1,7 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <endpoints xmlns="http://java.sun.com/xml/ns/jax-ws/ri/runtime" version="2.0">
-    <endpoint name="ActorService" implementation="com.iti.sakila.api.soap.ActorWebService"
-              url-pattern="/actors" />
-<!--    <endpoint name="FilmService" implementation="com.iti.sakila.api.soap.FilmService"-->
-<!--              url-pattern="/films" />-->
+    <endpoint name="ActorService" implementation="com.iti.sakila.api.soap.webservice.ActorWebService"
+              url-pattern="/actors"/>
+
+    <endpoint name="FilmService" implementation="com.iti.sakila.api.soap.webservice.FilmWebService"
+              url-pattern="/films" />
+
+    <endpoint name="LanguageService" implementation="com.iti.sakila.api.soap.webservice.LanguageWebService"
+              url-pattern="/languages" />
+
+<!--    <endpoint name="StaffService" implementation="com.iti.sakila.api.soap.webservice.StaffWebService"-->
+<!--              url-pattern="/staffs" />-->
+
+    <endpoint name="CustomerService" implementation="com.iti.sakila.api.soap.webservice.CustomerWebService"
+              url-pattern="/customers" />
+
+    <endpoint name="RentalService" implementation="com.iti.sakila.api.soap.webservice.RentalWebService"
+              url-pattern="/rent" />
+
+    <endpoint name="PaymentService" implementation="com.iti.sakila.api.soap.webservice.PaymentWebService"
+              url-pattern="/payments" />
+
+    <endpoint name="CountryService" implementation="com.iti.sakila.api.soap.webservice.CountryWebService"
+              url-pattern="/countries" />
+
+    <endpoint name="CategoryService" implementation="com.iti.sakila.api.soap.webservice.CategoryWebService"
+              url-pattern="/categories" />
+
+    <endpoint name="CityService" implementation="com.iti.sakila.api.soap.webservice.CityWebService"
+              url-pattern="/cities" />
 </endpoints>

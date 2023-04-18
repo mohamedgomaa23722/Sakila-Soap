@@ -1,0 +1,84 @@
+### get all categories (Done)
+POST http://localhost:8080/sakila/categories HTTP/1.1
+Content-Type: text/xml
+
+<soap:Envelope  xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"
+xmlns:com="http://webservice.soap.api.sakila.iti.com/">
+   <soap:Body>
+      <com:getCategories>
+         <page>2</page>
+      </com:getCategories>
+   </soap:Body>
+</soap:Envelope>
+
+### get single category (Done)
+POST http://localhost:8080/sakila/categories HTTP/1.1
+Content-Type: text/xml
+
+<soap:Envelope  xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"
+xmlns:com="http://webservice.soap.api.sakila.iti.com/">
+   <soap:Body>
+      <com:getCategory>
+         <id>1</id>
+      </com:getCategory>
+   </soap:Body>
+</soap:Envelope>
+
+### insert category (Done)
+POST http://localhost:8080/sakila/categories HTTP/1.1
+Content-Type: text/xml
+
+<soap:Envelope  xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"
+xmlns:com="http://webservice.soap.api.sakila.iti.com/">
+   <soap:Body>
+      <com:insertCategory>
+         <category>
+            <name>Tragedy Films</name>
+         </category>
+      </com:insertCategory>
+   </soap:Body>
+</soap:Envelope>
+
+
+### update category (Done)
+POST http://localhost:8080/sakila/categories HTTP/1.1
+Content-Type: text/xml
+
+<soap:Envelope  xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"
+xmlns:com="http://webservice.soap.api.sakila.iti.com/">
+   <soap:Body>
+      <com:updateCategory>
+         <category>
+            <categoryId>17</categoryId>
+            <name>Tragedy</name>
+        </category>
+      </com:updateCategory>
+   </soap:Body>
+</soap:Envelope>
+
+### delete category
+POST http://localhost:8080/sakila/categories HTTP/1.1
+Content-Type: text/xml
+
+<soap:Envelope  xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"
+xmlns:com="http://webservice.soap.api.sakila.iti.com/">
+   <soap:Body>
+      <com:deleteCategory>
+            <id>17</id>
+      </com:deleteCategory>
+   </soap:Body>
+</soap:Envelope>
+
+### find category by name
+POST http://localhost:8080/sakila/categories HTTP/1.1
+Content-Type: text/xml
+
+<soap:Envelope  xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"
+xmlns:com="http://webservice.soap.api.sakila.iti.com/">
+   <soap:Body>
+      <com:findCategoriesByName>
+            <name>ca</name>
+            <page>1</page>
+      </com:findCategoriesByName>
+   </soap:Body>
+</soap:Envelope>

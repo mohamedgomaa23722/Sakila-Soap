@@ -15,8 +15,8 @@ public class Database {
     private static final EntityManagerFactory emf =
             Persistence.createEntityManagerFactory("sakila");
 
-    public static <R> R doInTransaction(
-            Function<EntityManager, R> returningTransactionFunction) {
+    public static <R> R doInTransaction( Function<EntityManager, R> returningTransactionFunction ) {
+        System.out.println("*************** ------ open connection ------- ***************");
         var entityManager = emf.createEntityManager();
         var transaction = entityManager.getTransaction();
         transaction.begin();
@@ -28,12 +28,14 @@ public class Database {
             transaction.rollback();
             throw e;
         } finally {
+            System.out.println("*************** ------ close connection ------- ***************");
             entityManager.close();
         }
     }
 
     public static void doInTransactionWithoutResult(
             Consumer<EntityManager> voidTransactionFunction) {
+        System.out.println("*************** ------ open connection ------- ***************");
         var entityManager = emf.createEntityManager();
         var transaction = entityManager.getTransaction();
         transaction.begin();
@@ -44,6 +46,7 @@ public class Database {
             transaction.rollback();
             throw e;
         } finally {
+            System.out.println("*************** ------ close connection ------- ***************");
             entityManager.close();
         }
     }

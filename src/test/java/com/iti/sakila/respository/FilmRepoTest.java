@@ -1,6 +1,5 @@
 package com.iti.sakila.respository;
 
-import com.iti.sakila.persistance.Database;
 import com.iti.sakila.persistance.entity.Film;
 import com.iti.sakila.persistance.repository.FilmRepository;
 import com.iti.sakila.utils.FilterRecord;
@@ -59,10 +58,10 @@ public class FilmRepoTest {
         //Arrange
         FilterRecord filterRecord = new FilterRecord(1,1,new BigDecimal("20"), new BigDecimal("3"),"AIRPLANE");
         //Act
-        List<Film> films = Database.doInTransaction(em -> filmRepository.findFilmWithMultipleFilters(filterRecord, em));
+        List<Film> films = filmRepository.findFilmWithMultipleFilters(filterRecord);
         System.out.println(films);
         //Assert
-        Assertions.assertTrue(films.get(0).getReplacementCost().intValue() >= filterRecord.price().intValue());
+        Assertions.assertTrue(films.get(0).getReplacementCost().intValue() >= filterRecord.getPrice().intValue());
     }
 
 }

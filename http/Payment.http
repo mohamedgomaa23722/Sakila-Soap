@@ -1,0 +1,109 @@
+### get All (Done)
+POST http://localhost:8080/sakila/payments HTTP/1.1
+Content-Type: text/xml
+
+<soap:Envelope  xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"
+xmlns:com="http://webservice.soap.api.sakila.iti.com/">
+   <soap:Body>
+      <com:getPayments>
+         <page>1</page>
+      </com:getPayments>
+   </soap:Body>
+</soap:Envelope>
+
+### get single (Done)
+POST http://localhost:8080/sakila/payments HTTP/1.1
+Content-Type: text/xml
+
+<soap:Envelope  xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"
+xmlns:com="http://webservice.soap.api.sakila.iti.com/">
+   <soap:Body>
+      <com:getPayment>
+         <id>1</id>
+      </com:getPayment>
+   </soap:Body>
+</soap:Envelope>
+
+### delete
+POST http://localhost:8080/sakila/payments HTTP/1.1
+Content-Type: text/xml
+
+<soap:Envelope  xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"
+xmlns:com="http://webservice.soap.api.sakila.iti.com/">
+   <soap:Body>
+      <com:deletePayment>
+         <id>2</id>
+      </com:deletePayment>
+   </soap:Body>
+</soap:Envelope>
+
+### find Payment By amount (Done)
+POST http://localhost:8080/sakila/payments HTTP/1.1
+Content-Type: text/xml
+
+<soap:Envelope  xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"
+xmlns:com="http://webservice.soap.api.sakila.iti.com/">
+   <soap:Body>
+      <com:findPaymentByAmount>
+         <amount>10</amount>
+         <page>8</page>
+      </com:findPaymentByAmount>
+   </soap:Body>
+</soap:Envelope>
+
+### find Payment By Rental (Done)
+POST http://localhost:8080/sakila/payments HTTP/1.1
+Content-Type: text/xml
+
+<soap:Envelope  xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"
+xmlns:com="http://webservice.soap.api.sakila.iti.com/">
+   <soap:Body>
+      <com:findPaymentByRental>
+         <rentalId>1</rentalId>
+         <page>1</page>
+      </com:findPaymentByRental>
+   </soap:Body>
+</soap:Envelope>
+
+### find Payment By Customer (Done)
+POST http://localhost:8080/sakila/payments HTTP/1.1
+Content-Type: text/xml
+
+<soap:Envelope  xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"
+xmlns:com="http://webservice.soap.api.sakila.iti.com/">
+   <soap:Body>
+      <com:findPaymentByCustomer>
+         <customerId>1</customerId>
+         <page>1</page>
+      </com:findPaymentByCustomer>
+   </soap:Body>
+</soap:Envelope>
+
+### find Payment By Date (Done)
+POST http://localhost:8080/sakila/payments HTTP/1.1
+Content-Type: text/xml
+
+<soap:Envelope  xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"
+xmlns:com="http://webservice.soap.api.sakila.iti.com/">
+   <soap:Body>
+      <com:findPaymentByDate>
+        <from>2005-05-25</from>
+         <to>2005-05-26</to>  
+         <page>14</page>
+      </com:findPaymentByDate>
+   </soap:Body>
+</soap:Envelope>
+
+### find Payment By staff (Done)
+POST http://localhost:8080/sakila/payments HTTP/1.1
+Content-Type: text/xml
+
+<soap:Envelope  xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"
+xmlns:com="http://webservice.soap.api.sakila.iti.com/">
+   <soap:Body>
+      <com:findPaymentByStaff>
+         <staffId>1</staffId>
+         <page>1</page>
+      </com:findPaymentByStaff>
+   </soap:Body>
+</soap:Envelope>

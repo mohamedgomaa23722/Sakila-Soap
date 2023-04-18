@@ -16,6 +16,7 @@ import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import jakarta.persistence.UniqueConstraint;
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -28,12 +29,10 @@ import java.util.Set;
     , uniqueConstraints = @UniqueConstraint(columnNames="manager_staff_id") 
 )
 public class Store  implements java.io.Serializable {
-
-
-     private Byte storeId;
+     private int storeId;
      private Staff staff;
      private Address address;
-     private Timestamp lastUpdate;
+    private Timestamp lastUpdate = new Timestamp(new Date().getTime());
      private Set<Staff> staffs = new HashSet<Staff>(0);
      private Set<Inventory> inventories = new HashSet<Inventory>(0);
      private Set<Customer> customers = new HashSet<Customer>(0);
@@ -60,11 +59,11 @@ public class Store  implements java.io.Serializable {
 
     
     @Column(name="store_id", unique=true, nullable=false)
-    public Byte getStoreId() {
+    public int getStoreId() {
         return this.storeId;
     }
     
-    public void setStoreId(Byte storeId) {
+    public void setStoreId(int storeId) {
         this.storeId = storeId;
     }
 

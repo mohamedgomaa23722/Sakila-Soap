@@ -15,6 +15,7 @@ import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -26,12 +27,10 @@ import java.util.Set;
     ,catalog="sakila"
 )
 public class Inventory  implements java.io.Serializable {
-
-
      private Integer inventoryId;
      private Store store;
      private Film film;
-     private Timestamp lastUpdate;
+    private Timestamp lastUpdate =new Timestamp(new Date().getTime());
      private Set<Rental> rentals = new HashSet<Rental>(0);
 
     public Inventory() {

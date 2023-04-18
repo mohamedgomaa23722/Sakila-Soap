@@ -1,13 +1,15 @@
 package com.iti.sakila.persistance.dao;
 
+import jakarta.persistence.EntityManager;
+
 import java.util.List;
 
 public interface BaseDao<T> {
-    List<T> getAll(int page);
-    boolean update(T entity);
-    boolean delete(int id);
-    T findById(int id);
-    T insert(T entity);
-    boolean isExist();
-    List<T> findByName(String name, int page);
+    List<T> getAll(int page, EntityManager entityManager);
+    boolean update(T entity, int id, EntityManager entityManager);
+    boolean delete(int id, EntityManager entityManager);
+    T findById(int id, EntityManager entityManager);
+    T insert(T entity, EntityManager entityManager);
+    T isExist(String name,String fieldName, EntityManager entityManager);
+    List<T> findByName(String name, String fieldName, int page, EntityManager entityManager);
 }

@@ -1,5 +1,6 @@
 package com.iti.sakila.persistance.repository;
 
+import com.iti.sakila.bussiness.dtos.Message;
 import com.iti.sakila.persistance.entity.Film;
 import com.iti.sakila.persistance.Database;
 import com.iti.sakila.persistance.dao.FilmDao;
@@ -37,35 +38,41 @@ public class FilmRepository extends BaseRepository<Film> implements FilmDao {
         return Database.doSingleParameterSelectQuery(query, price, Film.class, page);
     }
 
+    public boolean delete(int id, EntityManager entityManager) {
+        return true;
+    }
 
-    public List<Film> findFilmWithMultipleFilters(FilterRecord filterRecord, EntityManager entityManager) {
-        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-        CriteriaQuery<Film> criteriaBuilderQuery = criteriaBuilder.createQuery(Film.class);
-        Root<Film> filmRoot = criteriaBuilderQuery.from(Film.class);
-        //Create List of predicates
-        List<Predicate> predicates = new ArrayList<>();
+    public List<Film> findFilmWithMultipleFilters(FilterRecord filterRecord) {
+      return   Database.doInTransaction(entityManager -> {
+          CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+          CriteriaQuery<Film> criteriaBuilderQuery = criteriaBuilder.createQuery(Film.class);
+          Root<Film> filmRoot = criteriaBuilderQuery.from(Film.class);
+          //Create List of predicates
+          List<Predicate> predicates = new ArrayList<>();
 
-        // 1 - Filter by name
-        predicates.add(criteriaBuilder.like(filmRoot.get("title"), filterRecord.name() + "%"));
+          // 1 - RequestFilter by name
+          predicates.add(criteriaBuilder.like(filmRoot.get("title"), filterRecord.getName() + "%"));
 
-        // 2 - Filter by category
+          // 2 - RequestFilter by category
 
-        // 3 - Filter by price
-        if (!filterRecord.price().equals("0"))
-            predicates.add(criteriaBuilder.greaterThanOrEqualTo(filmRoot.get("replacementCost"), filterRecord.price()));
+          // 3 - RequestFilter by price
+          if (!filterRecord.getPrice().equals("0"))
+              predicates.add(criteriaBuilder.greaterThanOrEqualTo(filmRoot.get("replacementCost"), filterRecord.getPrice()));
 
-        // 4 - Filter by rate
-        if (!filterRecord.rate().equals("0"))
-            predicates.add(criteriaBuilder.greaterThanOrEqualTo(filmRoot.get("rentalRate"), filterRecord.rate()));
+          // 4 - RequestFilter by rate
+          if (!filterRecord.getRate().equals("0"))
+              predicates.add(criteriaBuilder.greaterThanOrEqualTo(filmRoot.get("rentalRate"), filterRecord.getRate()));
 
-        //And then return only 10 films per request
-        Predicate finalPredicate = criteriaBuilder.and(predicates.toArray(new Predicate[0]));
-        criteriaBuilderQuery.select(filmRoot).where(finalPredicate);
+          //And then return only 10 films per request
+          Predicate finalPredicate = criteriaBuilder.and(predicates.toArray(new Predicate[0]));
+          criteriaBuilderQuery.select(filmRoot).where(finalPredicate);
 
-        //return film list
-        return entityManager.createQuery(criteriaBuilderQuery)
-                .setFirstResult( (filterRecord.page() - 1 ) * 10)  // offset
-                .setMaxResults(10) // limit
-                .getResultList();
+          //return film list
+          return entityManager.createQuery(criteriaBuilderQuery)
+                  .setFirstResult( (filterRecord.getPage() - 1 ) * 10)  // offset
+                  .setMaxResults(10) // limit
+                  .getResultList();
+        });
+
     }
 }
