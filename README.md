@@ -1,7 +1,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/othneildrew/Best-README-Template">
-    <img src="images/logo.png" alt="Logo" width="200" height="auto">
+    <img src="image/logo.png" alt="Logo" width="200" height="auto">
   </a>
   <h3 align="center">Sakila Soap Api</h3>
   <p align="center">
